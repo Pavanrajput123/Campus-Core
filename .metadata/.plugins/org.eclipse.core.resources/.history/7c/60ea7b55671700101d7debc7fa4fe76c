@@ -1,0 +1,28 @@
+package com.yourpackage.controller; // Change this to your actual package name
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class PageController {
+
+    @GetMapping("/Mess_menu")
+    public String messMenu() {
+        return "Mess_menu"; // returns templates/Mess_menu.html
+    }
+
+    @GetMapping("/Hostel")
+    public String hostelManagement() {
+        return "Hostel"; // returns templates/Hostel.html
+    }
+
+    @GetMapping("/MarketPlace")
+    public String marketPlace() {
+        return "MarketPlace"; // returns templates/MarketPlace.html
+    }
+
+    @GetMapping("/timetable")
+    public String timetableGenerator() {
+        return "timetable"; // returns templates/timetable.html
+    }
+}

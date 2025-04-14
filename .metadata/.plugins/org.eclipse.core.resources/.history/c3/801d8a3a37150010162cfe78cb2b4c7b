@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f2f2f2;
+            padding: 40px;
+            text-align: center;
+        }
+        .dashboard-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #306acb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <h1>Welcome to the Student Dashboard</h1>
+    <p>You have successfully logged in!</p>
+
+    <a href="/register" class="btn">Register New Student</a>
+    <a href="/logout" class="btn">Logout</a> <!-- Optional if you implement logout -->
+</div>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+package com.example.demo.controller;
+
+import com.example.demo.model.Student;
+import com.example.demo.repository.StudentRepository;
+
+import jakarta.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+public class WebController {
+
+    @Autowired
+    private StudentRepository studentRepository;
+   
+
+    // Registration Page
+    @GetMapping("/register")
+    public String showRegisterPage() {
+        return "student"; // maps to templates/student.html
+    }
+
+    // Login Page
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "login"; // maps to templates/login.html
+    }
+    
+    @GetMapping("/dashboard")
+    public String showDashboard(HttpSession session, Model model) {
+        Student student = (Student) session.getAttribute("loggedInStudent");
+        if (student != null) {
+            model.addAttribute("studentName", student.getName());
+        }
+        return "dashboard";
+    }
+    @GetMapping("/mess-menu")
+    public String showMessMenu() {
+        return "Mess_menu";
+    }
+
+    @GetMapping("/menu1")
+    public String showMenu1() {
+        return "menu1";
+    }
+
+    @GetMapping("/menu2")
+    public String menu2() {
+        return "menu2"; 
+    }
+
+    @GetMapping("/menu3")
+    public String menu3() {
+        return "menu3"; 
+    }
+    
+    @GetMapping("/marketplace")
+    public String showMarketPlace() {
+        return "MarketPlace";
+    }
+
+    @GetMapping("/hostel")
+    public String showHostel() {
+        return "Hostel";
+    }
+    @GetMapping("/description")
+    public String showHostelRooms() {
+        return "description";
+    }
+
+    @GetMapping("/description")
+    public String showDescription() {
+        return "description";
+    }
+
+    @GetMapping("/details")
+    public String showDetails() {
+        return "details";
+    }
+
+    // Handle Login Submission
+    @PostMapping("/login")
+    public String loginUser(@RequestParam String email,
+                            @RequestParam String password,
+                            Model model) {
+        Student student = studentRepository.findByEmailAndPassword(email, password);
+        if (student != null) {
+            model.addAttribute("name", student.getName());
+            return "success"; // templates/success.html
+        } else {
+            model.addAttribute("error", "Invalid email or password.");
+            return "login"; // reload login with error
+        }
+    }
+}

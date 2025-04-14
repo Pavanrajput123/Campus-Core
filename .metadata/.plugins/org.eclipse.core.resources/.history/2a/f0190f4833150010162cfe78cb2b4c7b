@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Registration</title>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial; padding: 20px; background-color: #f9f9f9; }
+        form, table { margin-bottom: 20px; }
+        input, button { padding: 8px; margin: 5px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+
+<h2>Register New Student</h2>
+
+<form id="studentForm">
+    <input type="text" id="name" placeholder="Name" required />
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="number" id="age" placeholder="Age" required />
+    <button type="submit">Add Student</button>
+</form>
+
+<h2>All Students</h2>
+<table id="studentsTable">
+    <thead>
+        <tr>
+            <th>ID</th><th>Name</th><th>Email</th><th>Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Filled by JS -->
+    </tbody>
+</table>
+
+<script>
+    const form = document.getElementById('studentForm');
+    const tableBody = document.querySelector('#studentsTable tbody');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const student = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            age: document.getElementById('age').value
+        };
+
+        const res = await fetch('/api/students', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(student)
+        });
+
+        if (res.ok) {
+            alert("Student added!");
+            form.reset();
+            loadStudents();
+        } else {
+            alert("Error adding student.");
+        }
+    });
+
+    async function loadStudents() {
+        const res = await fetch('/api/students');
+        const students = await res.json();
+
+        tableBody.innerHTML = '';
+        students.forEach(s => {
+            const row = `<tr>
+                <td>${s.id}</td>
+                <td>${s.name}</td>
+                <td>${s.email}</td>
+                <td>${s.age}</td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    window.onload = loadStudents;
+</script>
+
+</body>
+</html>

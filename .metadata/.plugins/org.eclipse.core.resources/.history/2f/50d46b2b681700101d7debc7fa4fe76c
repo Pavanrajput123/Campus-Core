@@ -1,0 +1,28 @@
+package com.yourpackage.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class PageController {
+
+    @GetMapping("/Mess_menu")
+    public String messMenu() {
+        return "Mess_menu"; // Should match Mess_menu.html
+    }
+
+    @GetMapping("/Hostel")
+    public String hostelManagement() {
+        return "Hostel"; // Should match Hostel.html
+    }
+
+    @GetMapping("/MarketPlace")
+    public String marketPlace() {
+        return "MarketPlace"; // Should match MarketPlace.html
+    }
+
+    @GetMapping("/timetable")
+    public String timetableGenerator() {
+        return "timetable"; // Should match timetable.html
+    }
+}
